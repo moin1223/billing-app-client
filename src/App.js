@@ -17,7 +17,6 @@ function App() {
       <UserContext.Provider value={[modal,setmodal]}>
   <Routes>
     <Route path="/" element={<Home />} />
-    {/* <Route path="/form" element={<Popup />} /> */}
   </Routes>
   </UserContext.Provider>
     

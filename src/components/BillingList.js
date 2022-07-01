@@ -2,7 +2,7 @@ import React from 'react';
 import axios from "axios";
 import DataTable from "react-data-table-component"
 import { useEffect, useState } from 'react';
-import { Modal, ModalHeader,ModalBody } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import Form from './Form/Form';
 
 const BillingList = () => {
@@ -13,9 +13,10 @@ const BillingList = () => {
 
   const getBillingList = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/billing-list")
+      const response = await axios.get("http://localhost:5000/billing-list/billing-list")
       setbillingList(response.data);
       setFilterbillingList(response.data)
+     
 
     } catch (error) {
       console.log(error)
@@ -26,31 +27,31 @@ const BillingList = () => {
   }, [])
 
 
-  useEffect(() => {
+  useEffect((search) => {
     const result = billingList.filter(bill => {
       return bill.name.toLowerCase().match(search.toLowerCase());
     })
     setFilterbillingList(result)
 
-  }, [search])
+  }, [search,billingList])
 
   //delete
   const handleDelete = (_id) => {
-    console.log("click",_id)
-       
+    console.log("click", _id)
+
     fetch(`https://hydro-mountie-84173.herokuapp.com/deleteBilling/${_id}`, {
-        method: 'DELETE',
+      method: 'DELETE',
     })
-    .then(res => res.json())
-    .then(result => {
-        if(result){
-            
+      .then(res => res.json())
+      .then(result => {
+        if (result) {
+
         }
 
         alert('Service is successfully deleted');
         // history.replace('/');
-    });
-}
+      });
+  }
 
   const columns = [
     {
@@ -77,18 +78,18 @@ const BillingList = () => {
     },
     {
       name: "Action",
-      
-        cell: (row) => <button>Edit</button> ,
-         
+
+      cell: (row) => <button>Edit</button>,
+
 
 
     },
     {
       name: "",
-      
-        cell: (row) => <button onClick={() =>  handleDelete(row._id)}>Delete</button> ,
-        
-      
+
+      cell: (row) => <button onClick={() => handleDelete(row._id)}>Delete</button>,
+
+
     },
   ]
   return <DataTable
@@ -117,7 +118,7 @@ const BillingList = () => {
 
           </ModalBody>
         </Modal>
-        <button onClick={() => setmodal(true)} className='btn mt-3' style={{ backgroundColor: "red" }}>
+        <button onClick={() => setmodal(true)} className='btn mt-3' style={{ backgroundColor: "blue" }}>
           Add New Bill
 
         </button>
