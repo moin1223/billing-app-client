@@ -7,15 +7,15 @@ import Form from './Form/Form';
 
 const BillingList = () => {
   const [modal, setmodal] = useState(false)
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [billingList, setbillingList] = useState([]);
-  const [filterbillingList, setFilterbillingList] = useState([]);
+  // const [filterbillingList, setFilterbillingList] = useState([]);
 
   const getBillingList = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/billing-list/billing-list")
+      const response = await axios.get("https://hydro-mountie-84173.herokuapp.com/billing-list")
       setbillingList(response.data);
-      setFilterbillingList(response.data)
+      // setFilterbillingList(response.data)
      
 
     } catch (error) {
@@ -27,13 +27,13 @@ const BillingList = () => {
   }, [])
 
 
-  useEffect((search) => {
-    const result = billingList.filter(bill => {
-      return bill.name.toLowerCase().match(search.toLowerCase());
-    })
-    setFilterbillingList(result)
+  // useEffect((search) => {
+  //   const result = billingList.filter(bill => {
+  //     return bill.name.toLowerCase().match(search.toLowerCase());
+  //   })
+  //   setFilterbillingList(result)
 
-  }, [search,billingList])
+  // }, [search,billingList])
 
   //delete
   const handleDelete = (_id) => {
@@ -95,7 +95,8 @@ const BillingList = () => {
   return <DataTable
     title="Billing List"
     columns={columns}
-    data={filterbillingList}
+    // data={filterbillingList}
+    data={billingList}
     pagination
     fixedHeader
     fixedHeaderScrollHeight='450px'
@@ -130,8 +131,8 @@ const BillingList = () => {
         type="text"
         placeholder='Search here'
         className='w-25 from-control'
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        // value={search}
+        // onChange={(e) => setSearch(e.target.value)}
       />
     }
     subHeaderAlign="left"
